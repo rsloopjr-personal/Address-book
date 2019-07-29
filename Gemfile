@@ -9,6 +9,7 @@ gem 'devise'
 gem 'sprockets-rails'
 gem 'jquery-rails'
 gem 'bootstrap'
+gem 'bootstrap_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0.rc2'

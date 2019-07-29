@@ -9,7 +9,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="height: 100%;">
   <% if notice %>
     <p class="alert alert-success"><%= notice %></p>
   <% end %>
@@ -17,6 +17,5 @@
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
     <%= yield %>
-    <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
-  </body>
+    </body>
 </html>

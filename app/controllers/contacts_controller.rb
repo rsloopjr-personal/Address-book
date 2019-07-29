@@ -5,12 +5,15 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = Contact.where(user_id: current_user.id)
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    if @contact.user_id != current_user.id
+      redirect_to contacts_url, alert: "Contact does not exist"
+    end
   end
 
   # GET /contacts/new
@@ -70,6 +73,8 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
+    rescue Exception => error
+      redirect_to contacts_url, alert: "Contact does not exist"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

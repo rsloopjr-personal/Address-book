@@ -1,6 +1,17 @@
-<h1>Editing Contact</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-5 text-center">
+        <h1>Editing Contact</h1>
 
-<%= render 'form', contact: @contact %>
+        <%= render 'form', contact: @contact %>
 
-<%= link_to 'Show', @contact %> |
-<%= link_to 'Back', contacts_path %>
+        <!-- <%= link_to 'Show', @contact %> | -->
+        <%= link_to 'Back', contacts_path %>
+    </div>
+    <div class="col text-right">
+      <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
+    </div>
+  </div>
+</div>
