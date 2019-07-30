@@ -19,11 +19,18 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-  #  logger.debug "#{@user_id}"
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /contacts/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /contacts
@@ -36,10 +43,12 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        format.html { redirect_to @contact, notice: 'Contact successfully created.' }
+        format.js { redirect_to contacts_url, notice: 'Contact successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }
+        format.js
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -50,10 +59,12 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+        format.html { redirect_to contacts_url, notice: 'Contact was successfully updated.' }
+        format.js { redirect_to contacts_url, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
+        format.js
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

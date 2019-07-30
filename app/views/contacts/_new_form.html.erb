@@ -1,0 +1,52 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <%= bootstrap_form_with(model: @contact, remote: true) do |form| %>
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Create Contact</h4>
+      <button type="button" class="close" data-dismiss="modal">x</button>
+    </div>
+    <div class="modal-body">
+      
+          <% if @contact.errors.any? %>
+              <div id="error_explanation">
+              
+              <% @contact.errors.full_messages.each do |message| %>
+                  <p class="alert alert-danger"><%= message %></p>
+              <% end %>
+              
+              </div>
+          <% end %> 
+
+          <div class="field">
+              <%= form.label :first_name %>
+              <%= form.text_field :first_name, hide_label: true %>
+          </div>
+
+          <div class="field">
+              <%= form.label :last_name %>
+              <%= form.text_field :last_name, hide_label: true %>
+          </div>
+
+          <div class="field">
+              <%= form.label :phone_number %>
+              <%= form.telephone_field :phone_number, hide_label: true %>
+          </div>
+
+          <div class="field">
+              <%= form.label :contact_picture %>
+              <%= form.text_field :contact_picture, hide_label: true %>
+          </div>
+
+          <div class="field">
+              <%= form.label :contact_email %>
+              <%= form.email_field :contact_email, hide_label: true %>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <div class="actions" >
+        <%= form.submit %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
