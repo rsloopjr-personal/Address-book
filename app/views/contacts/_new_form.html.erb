@@ -6,16 +6,6 @@
       <button type="button" class="close" data-dismiss="modal">x</button>
     </div>
     <div class="modal-body">
-      
-          <% if @contact.errors.any? %>
-              <div id="error_explanation">
-              
-              <% @contact.errors.full_messages.each do |message| %>
-                  <p class="alert alert-danger"><%= message %></p>
-              <% end %>
-              
-              </div>
-          <% end %> 
 
           <div class="field">
               <%= form.label :first_name %>

@@ -1,11 +1,13 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user!
+  before_action :order_sql
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.where(user_id: current_user.id)
+    @contacts = Contact.where(user_id: current_user.id).order(order_sql)
+
   end
 
   # GET /contacts/1
@@ -86,6 +88,13 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
     rescue Exception => error
       redirect_to contacts_url, alert: "Contact does not exist"
+    end
+
+    def order_sql
+     order_sql = "CASE
+          WHEN contacts.first_name IS NOT NULL AND contacts.first_name != '' THEN LOWER(first_name) 
+          ELSE LOWER(last_name)
+        END"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
