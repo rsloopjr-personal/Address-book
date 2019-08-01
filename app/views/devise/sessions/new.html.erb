@@ -1,6 +1,8 @@
 <% content_for :form do %> 
   <h2>Log in</h2>
-
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
   <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.label :email %><br />

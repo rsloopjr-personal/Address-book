@@ -19,6 +19,8 @@
 .table-wrapper-scroll-y {
     display: block;
 }
+//.table-wrapper-scroll-y thead th { position: sticky; top: 0;}
+.table-wrapper-scroll-y thead th { position: sticky; top: 0; background: #007bff; border-top-width: 0px; }
 
 
 
