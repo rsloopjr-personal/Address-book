@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <%= render 'contact_groups/groups_table' %>
+    </div>
+    <div class="col-9">
+      <%= render 'contacts/table' %>
+    </div>
+    <div class="col-1 text-right">
+      <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
+    </div>
+  </div>
+</div>

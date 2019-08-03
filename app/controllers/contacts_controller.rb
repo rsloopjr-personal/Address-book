@@ -1,11 +1,10 @@
 class ContactsController < ApplicationController
-  before_action :order_sql
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.where(user_id: current_user.id).order(order_sql)
+    @contacts = Contact.where(user_id: current_user.id).order_by_name
 
   end
 
@@ -28,6 +27,9 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
+    if @contact.user_id != current_user.id
+      redirect_to contacts_url, alert: "Contact does not exist"
+    end
     respond_to do |format|
       format.html
       format.js
@@ -43,11 +45,16 @@ class ContactsController < ApplicationController
    # logger.debug "#{@contact}"
 
     respond_to do |format|
+      @current_contact_group = ContactGroup.where( user_id: current_user.id, id: session[:contact_group_id]).first!
+      @contact.contact_group_id = @current_contact_group.id
       if @contact.save
+        #logger.debug('====== Hi1')
         format.html { redirect_to @contact, notice: 'Contact successfully created.' }
-        format.js { redirect_to contacts_url, notice: 'Contact successfully created.' }
+        format.js { redirect_to homes_url, notice: 'Contact successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
+        #logger.debug('====== Hi2')
+        logger.debug(@contact.errors.full_messages)
         format.html { render :new }
         format.js
         format.json { render json: @contact.errors, status: :unprocessable_entity }
@@ -61,7 +68,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       if @contact.update(contact_params)
         format.html { redirect_to contacts_url, notice: 'Contact was successfully updated.' }
-        format.js { redirect_to contacts_url, notice: 'Contact was successfully updated.' }
+        format.js { redirect_to homes_url, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -76,7 +83,7 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+      format.html { redirect_to homes_url, notice: 'Contact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -87,13 +94,6 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
     rescue Exception => error
       redirect_to contacts_url, alert: "Contact does not exist"
-    end
-
-    def order_sql
-     order_sql = "CASE
-          WHEN contacts.first_name IS NOT NULL AND contacts.first_name != '' THEN LOWER(first_name) 
-          ELSE LOWER(last_name)
-        END"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

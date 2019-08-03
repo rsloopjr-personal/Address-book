@@ -1,7 +1,10 @@
 class Contact < ApplicationRecord
     belongs_to :user
+    belongs_to :contact_group
      validate :has_name
      validate :has_contact_information
+
+     scope :order_by_name, -> { order("CASE WHEN contacts.first_name IS NOT NULL AND contacts.first_name != '' THEN LOWER(first_name)  ELSE LOWER(last_name) END") }
 
     def has_name
         if self.first_name.blank? && self.last_name.blank?
