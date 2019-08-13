@@ -1,0 +1,37 @@
+<%= form_with(model: share_invite, local: true) do |form| %>
+  <% if share_invite.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(share_invite.errors.count, "error") %> prohibited this share_invite from being saved:</h2>
+
+      <ul>
+        <% share_invite.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :sharer_id %>
+    <%= form.number_field :sharer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receiver_id %>
+    <%= form.number_field :receiver_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_group_id %>
+    <%= form.number_field :contact_group_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

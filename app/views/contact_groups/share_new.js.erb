@@ -1,0 +1,7 @@
+<% if current_user.id != @contact_group.owner_id %>
+    $("#shared-modal").html("<%= j (render partial: 'not_owner') %>");
+<% else %>
+    $("#shared-modal").html("<%= j (render partial: 'share_form') %>");
+<% end %>
+
+$("#shared-modal").modal();

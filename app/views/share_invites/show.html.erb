@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sharer:</strong>
+  <%= @share_invite.sharer_id %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= @share_invite.receiver_id %>
+</p>
+
+<p>
+  <strong>Contact group:</strong>
+  <%= @share_invite.contact_group_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @share_invite.status %>
+</p>
+
+<%= link_to 'Edit', edit_share_invite_path(@share_invite) %> |
+<%= link_to 'Back', share_invites_path %>

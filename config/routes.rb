@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  resources :share_invites
   resources :homes
-  resources :contact_groups
+  resources :contact_groups do
+    member do
+      get :share_new #, to: 'contact_groups#share_new', as: :share_new
+      patch :share_create #, to: 'contact_groups#share_create', as: :share_create
+    end
+  end
   resources :contacts
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

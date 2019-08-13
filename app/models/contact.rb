@@ -1,5 +1,4 @@
 class Contact < ApplicationRecord
-    belongs_to :user
     belongs_to :contact_group
      validate :has_name
      validate :has_contact_information

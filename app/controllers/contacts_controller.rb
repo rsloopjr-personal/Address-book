@@ -4,16 +4,13 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.where(user_id: current_user.id).order_by_name
+    @contacts = Contact.where(contact_group_id: session[:contact_group_id]).order_by_name
 
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    if @contact.user_id != current_user.id
-      redirect_to contacts_url, alert: "Contact does not exist"
-    end
   end
 
   # GET /contacts/new
@@ -27,9 +24,6 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
-    if @contact.user_id != current_user.id
-      redirect_to contacts_url, alert: "Contact does not exist"
-    end
     respond_to do |format|
       format.html
       format.js
@@ -40,13 +34,14 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
-    @contact.user_id = current_user.id
+   # @contact.user_id = current_user.id
    # logger.debug "#{@contact.first_name}"
    # logger.debug "#{@contact}"
 
     respond_to do |format|
-      @current_contact_group = ContactGroup.where( user_id: current_user.id, id: session[:contact_group_id]).first!
-      @contact.contact_group_id = @current_contact_group.id
+     # @current_contact_group = ContactGroup.where( user_id: current_user.id, id: session[:contact_group_id]).first!
+     @current_contact_group = current_user.contact_groups.where( id: session[:contact_group_id] ).first! 
+     @contact.contact_group_id = @current_contact_group.id
       if @contact.save
         #logger.debug('====== Hi1')
         format.html { redirect_to @contact, notice: 'Contact successfully created.' }
@@ -91,9 +86,7 @@ class ContactsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
-    rescue Exception => error
-      redirect_to contacts_url, alert: "Contact does not exist"
+      @contact = current_user.contact_group.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

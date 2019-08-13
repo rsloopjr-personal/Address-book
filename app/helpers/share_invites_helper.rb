@@ -1,0 +1,2 @@
+module ShareInvitesHelper
+end

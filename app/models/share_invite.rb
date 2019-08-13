@@ -1,0 +1,2 @@
+class ShareInvite < ApplicationRecord
+end

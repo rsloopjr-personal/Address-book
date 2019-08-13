@@ -1,0 +1,6 @@
+<% if @contact_group.errors%>
+$("#shared-modal").html("<%= j (render partial: 'share_form') %>");
+$("#shared-modal").modal();
+<%else%>
+location.reload();
+<%end%>

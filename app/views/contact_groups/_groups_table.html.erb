@@ -12,6 +12,7 @@
       <tr>
         <td><%= link_to contact_group.group_name,  contact_group_path(contact_group), class: "btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_contact_group_path(contact_group), remote: true %></td>
+        <td><%= link_to 'Share', share_new_contact_group_path(contact_group), remote: true %></td>
         <td><%= link_to 'Destroy', contact_group, method: :delete, data: { confirm: "Are you sure? The #{contact_group.group_name} group contains #{pluralize(@contacts.count(), 'record')} which will be lost if you continue!" } %></td>
       </tr>
     <% end %>

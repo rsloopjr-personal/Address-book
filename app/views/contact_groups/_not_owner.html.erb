@@ -1,0 +1,28 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Share</h4>
+      <button type="button" class="close" data-dismiss="modal">x</button>
+    </div>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+    <div class="modal-body">
+
+      <div>
+       <p class="alert alert-danger">Must be the owner of the group to share it</p>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div class="actions" >
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

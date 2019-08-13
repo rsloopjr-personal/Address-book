@@ -23,29 +23,31 @@ class HomesController < ApplicationController
     end
 
     def set_contact_groups
-      @contact_groups = ContactGroup.where(user_id: current_user.id)
+      @contact_groups = current_user.contact_groups
     end
 
     def create_group_if_none
       if @contact_groups.present?
         logger.debug "contact_group exists"
       else
-        ContactGroup.create(group_name: "Default", user_id: current_user.id, default: "true" )
-        @contact_groups = ContactGroup.where(user_id: current_user.id)
+        default_contact_group = ContactGroup.create(group_name: "Default", default: "true", owner_id: current_user.id )
+        default_contact_group.users << current_user
+        @contact_groups = [default_contact_group]
+        logger.debug "contact_groups #{default_contact_group}"
         logger.debug "Default contact_group created"
       end
     end
 
     def set_contact_group_session
       if session[:contact_group_id].present?
-        if @current_contact_group = ContactGroup.where( user_id: current_user.id, id: session[:contact_group_id]).first
+        if @current_contact_group = current_user.contact_groups.where( id: session[:contact_group_id]).first
           logger.debug "contact_group_id is #{session[:contact_group_id]}"
         else
-          @current_contact_group = ContactGroup.where( user_id: current_user.id, default: true).first!
+          @current_contact_group = current_user.contact_groups.where( default: true ).first!
           logger.debug "contact_group_id is #{session[:contact_group_id]}"
         end
       else
-         @current_contact_group = ContactGroup.where( user_id: current_user.id, default: true).first!
+         @current_contact_group = current_user.contact_groups.where( default: true ).first!
          session[:contact_group_id] = @current_contact_group.id
         logger.debug "Default contact_group session created and set to #{session[:contact_group_id]}"
       end
