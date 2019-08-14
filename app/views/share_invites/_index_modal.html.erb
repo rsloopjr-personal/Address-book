@@ -5,7 +5,13 @@
         <button type="button" class="close" data-dismiss="modal">x</button>
       </div>
       <div class="modal-body">
-
+        <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+        
         <table>
           <thead>
             <tr>
@@ -14,24 +20,41 @@
             </tr>
           </thead>
 
-          <% if notice %>
-          <p class="alert alert-success"><%= notice %></p>
-          <% end %>
-          <% if alert %>
-          <p class="alert alert-danger"><%= alert %></p>
-          <% end %>
-
           <tbody>
-            <% if @share_invites.blank? %>
+            <% if @pending_share_invites.blank? %>
               <tr>
                 <td>No Pending Invites</td>
               </tr>
             <%else%>
-              <% @share_invites.each do |share_invite| %>
+              <% @pending_share_invites.each do |share_invite| %>
                 <tr>
                   <td><%= User.where( id: share_invite.sharer_id ).first.email%> wishes to share their '<%= ContactGroup.where( id: share_invite.contact_group_id ).first.group_name %>' group with you: </td>
                   <td><%= link_to 'Accept', accept_share_invite_path(share_invite) %></td>
                   <td><%= link_to 'Decline', decline_share_invite_path(share_invite) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Accepted Invites</th>
+              <th colspan="1"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @accepted_share_invites.blank? %>
+              <tr>
+                <td>No Accepted Invites</td>
+              </tr>
+            <%else%>
+              <% @accepted_share_invites.each do |share_invite| %>
+                <tr>
+                  <td><%= User.where( id: share_invite.sharer_id ).first.email%> is sharing their '<%= ContactGroup.where( id: share_invite.contact_group_id ).first.group_name %>' group with you: </td>
+                  <td><%= link_to 'Unshare', share_invite, method: :delete, data: { confirm: "Are you sure wish to unshare? If you continue you will lose access the #{ContactGroup.where( id: share_invite.contact_group_id ).first.group_name} group and all associated contacts"} %></td>
                 </tr>
               <% end %>
             <% end %>

@@ -11,6 +11,9 @@
         <% if alert %>
           <p class="alert alert-danger"><%= alert %></p>
         <% end %>
+        <% if flash[:modal_alert] %>
+          <p class="alert alert-danger"><%= flash[:modal_alert] %></p>
+        <% end %>
       <div class="modal-body">
 
         <div class="field">

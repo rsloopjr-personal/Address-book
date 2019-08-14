@@ -8,10 +8,10 @@
     </div>
     <div class="col-1">
       <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
-      <% if @share_invites.blank? %>
+      <% if @pending_share_invites.blank? %>
         <%= link_to "Invites", share_invites_path, remote: true %>
       <% else %>
-        <%= link_to "Invites", share_invites_path, remote: true %> <span class="badge badge-pill badge-danger"><%= @share_invites.count %></span>
+        <%= link_to "Invites", share_invites_path, remote: true %> <span class="badge badge-pill badge-danger"><%= @pending_share_invites.count %></span>
       <% end %>
     </div>
   </div>

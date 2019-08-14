@@ -9,7 +9,7 @@
   </thead>
 
   <tbody>
-    <% @share_invites.each do |share_invite| %>
+    <% @pending_share_invites.each do |share_invite| %>
       <tr>
         <td><%= User.where( id: share_invite.sharer_id ).first.email%> wishes to share their '<%= ContactGroup.where( id: share_invite.contact_group_id ).first.group_name %>' group with you: </td>
         <!-- <td><%= share_invite.sharer_id %></td>

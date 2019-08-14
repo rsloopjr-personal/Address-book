@@ -20,7 +20,8 @@ class HomesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
 
     def set_share_invites
-      @share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
+      @pending_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
+      @accepted_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "accepted"})
     end
 
     def set_contact_groups

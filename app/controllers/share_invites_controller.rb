@@ -4,8 +4,10 @@ class ShareInvitesController < ApplicationController
   # GET /share_invites
   # GET /share_invites.json
   def index
-    @share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
-
+    @pending_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
+    @accepted_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "accepted"})
+    logger.debug "pending- #{@pending_share_invites}"
+    logger.debug "accepted- #{@accepted_share_invites}"
   end
 
   # GET share_invites/:id/accept
@@ -78,9 +80,12 @@ class ShareInvitesController < ApplicationController
   # DELETE /share_invites/1
   # DELETE /share_invites/1.json
   def destroy
+    contact_group = ContactGroup.find(@share_invite.contact_group_id)
+    #logger.debug "Grabbed the contact group #{contact_group} with a list of users of #{contact_group.users}"
+    contact_group.users.delete(current_user)
     @share_invite.destroy
     respond_to do |format|
-      format.html { redirect_to share_invites_url, notice: 'Share invite was successfully destroyed.' }
+      format.html { redirect_to homes_url, notice: "#{contact_group.group_name} has been removed from your Groups list" }
       format.json { head :no_content }
     end
   end

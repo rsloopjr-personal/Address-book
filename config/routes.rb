@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :share_invites do
+  resources :share_invites, :only => [:index, :destroy] do
     member do
       get :accept
       get :decline
     end
   end
-  resources :homes
+  resources :homes, :only => [:index]
   resources :contact_groups do
     member do
       get :share_new #, to: 'contact_groups#share_new', as: :share_new
