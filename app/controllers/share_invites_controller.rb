@@ -4,38 +4,62 @@ class ShareInvitesController < ApplicationController
   # GET /share_invites
   # GET /share_invites.json
   def index
-    @share_invites = ShareInvite.all
+    @share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
+
+  end
+
+  # GET share_invites/:id/accept
+  def accept
+    logger.debug "params id is set to #{params[:id]}"
+    invite = ShareInvite.find(params[:id])
+    invite.status = "accepted"
+    logger.debug "Invite status is #{invite.status}"
+    invite.save
+    contact_group = ContactGroup.find(invite.contact_group_id)
+    logger.debug "contact_group set to #{contact_group}"
+    contact_group.users << User.find(invite.receiver_id)
+    redirect_to homes_url, notice: 'Invitation Accepted'
+   # @invite = 
+  end
+
+  # GET /share_invites/:id/decline
+  def decline
+    invite = ShareInvite.find(params[:id])
+    invite.status = "declined"
+    invite.save
+    redirect_to homes_url, alert: 'Invitation Declined'
+    #link_to "Invites", share_invites_path, remote: true
   end
 
   # GET /share_invites/1
   # GET /share_invites/1.json
-  def show
-  end
+ # def show
+ # end
 
   # GET /share_invites/new
-  def new
-    @share_invite = ShareInvite.new
-  end
+ # def new
+ #   @share_invite = ShareInvite.new
+ # end
 
   # GET /share_invites/1/edit
-  def edit
-  end
+ # def edit
+ # end
 
   # POST /share_invites
   # POST /share_invites.json
-  def create
-    @share_invite = ShareInvite.new(share_invite_params)
+ # def create
+ #   @share_invite = ShareInvite.new(share_invite_params)
 
-    respond_to do |format|
-      if @share_invite.save
-        format.html { redirect_to @share_invite, notice: 'Share invite was successfully created.' }
-        format.json { render :show, status: :created, location: @share_invite }
-      else
-        format.html { render :new }
-        format.json { render json: @share_invite.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+ #   respond_to do |format|
+ #     if @share_invite.save
+ #       format.html { redirect_to @share_invite, notice: 'Share invite was successfully created.' }
+ #       format.json { render :show, status: :created, location: @share_invite }
+ #     else
+ #       format.html { render :new }
+ #       format.json { render json: @share_invite.errors, status: :unprocessable_entity }
+ #     end
+ #   end
+ # end
 
   # PATCH/PUT /share_invites/1
   # PATCH/PUT /share_invites/1.json

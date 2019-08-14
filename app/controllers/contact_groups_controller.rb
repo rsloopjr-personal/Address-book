@@ -1,7 +1,6 @@
 class ContactGroupsController < ApplicationController
   before_action :set_contact_groups, only: [:index]
   before_action :set_contact_group, only: [:show, :edit, :update, :destroy, :share_create, :share_new]
-  #before_action :check_if_owner, only: [:share_new]
 
   # GET /contact_groups
   # GET /contact_groups.json
@@ -84,11 +83,18 @@ class ContactGroupsController < ApplicationController
       if User.exists?(email: params[:contact_group][:share_id])
         sharee = User.where(email: params[:contact_group][:share_id]).first!
         if sharee.contact_groups.where({ id: @contact_group.id }).blank?
-          @contact_group.users << User.where(email: params[:contact_group][:share_id]).first!
+          #create_invite = ShareInvite.create!( sharer_id: current_user.id, receiver_id: User.where( email: params[:contact_groups][:share_id] ).first.id, contact_group_id: @contact_group.id, status: “pending” )
+          create_invite = ShareInvite.create!( sharer_id: current_user.id, receiver_id: sharee.id, contact_group_id: @contact_group.id, status: "pending" )
+
           respond_to do |format|
-            format.html { redirect_to homes_url, notice: 'Group shared' }
-            format.js { redirect_to homes_url, notice: 'Group shared' }
+            format.html { redirect_to homes_url, notice: 'Invite Sent' }
+            format.js { redirect_to homes_url, notice: 'Invite Sent' }
           end
+          #@contact_group.users << User.where(email: params[:contact_group][:share_id]).first!
+          #respond_to do |format|
+          #  format.html { redirect_to homes_url, notice: 'Group shared' }
+          #  format.js { redirect_to homes_url, notice: 'Group shared' }
+          #end
         else
           respond_to do |format|
             format.html { flash.alert = "Group has already been shared with user" }
@@ -129,17 +135,6 @@ class ContactGroupsController < ApplicationController
     def set_contact_groups
       @contact_groups = current_user.contact_groups
     end 
-
-    def check_if_owner
-      if current_user.id != @contact_group.owner_id
-        respond_to do |format|
-          format.html { redirect_to homes_url, alert: "You must be the owner of the group to share it" }
-          #format.js { redirect_to homes_url, alert: "You must be the owner of the group to share it" }
-          format.js { "location.reload();"  }
-        end
-        throw(:abort)
-      end
-    end
 
     def create_group_if_none
       if @contact_groups.present?

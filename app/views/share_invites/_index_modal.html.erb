@@ -1,0 +1,43 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Invites</h4>
+        <button type="button" class="close" data-dismiss="modal">x</button>
+      </div>
+      <div class="modal-body">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Pending Invites</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+
+          <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+          <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+
+          <tbody>
+            <% if @share_invites.blank? %>
+              <tr>
+                <td>No Pending Invites</td>
+              </tr>
+            <%else%>
+              <% @share_invites.each do |share_invite| %>
+                <tr>
+                  <td><%= User.where( id: share_invite.sharer_id ).first.email%> wishes to share their '<%= ContactGroup.where( id: share_invite.contact_group_id ).first.group_name %>' group with you: </td>
+                  <td><%= link_to 'Accept', accept_share_invite_path(share_invite) %></td>
+                  <td><%= link_to 'Decline', decline_share_invite_path(share_invite) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+  </div>
+</div>

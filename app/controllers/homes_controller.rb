@@ -3,6 +3,7 @@ class HomesController < ApplicationController
   before_action :set_contact_groups
   before_action :create_group_if_none
   before_action :set_contact_group_session
+  before_action :set_share_invites
 
   # GET /homes
   # GET /homes.json
@@ -22,8 +23,12 @@ class HomesController < ApplicationController
       @home = Home.find(params[:id])
     end
 
+    def set_share_invites
+      @share_invites = ShareInvite.where(receiver_id: current_user.id)
+    end
+
     def set_contact_groups
-      @contact_groups = current_user.contact_groups
+      @contact_groups = current_user.contact_groups.order(:group_name)
     end
 
     def create_group_if_none

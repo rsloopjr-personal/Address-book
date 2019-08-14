@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :share_invites
+  resources :share_invites do
+    member do
+      get :accept
+      get :decline
+    end
+  end
   resources :homes
   resources :contact_groups do
     member do
