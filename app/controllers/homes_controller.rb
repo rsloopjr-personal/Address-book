@@ -1,5 +1,4 @@
 class HomesController < ApplicationController
-  before_action :set_home, only: [:show, :edit, :update, :destroy]
   before_action :set_contact_groups
   before_action :create_group_if_none
   before_action :set_contact_group_session
@@ -19,12 +18,9 @@ class HomesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_home
-      @home = Home.find(params[:id])
-    end
 
     def set_share_invites
-      @share_invites = ShareInvite.where(receiver_id: current_user.id)
+      @share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
     end
 
     def set_contact_groups

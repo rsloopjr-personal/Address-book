@@ -6,9 +6,13 @@
     <div class="col-9">
       <%= render 'contacts/table' %>
     </div>
-    <div class="col-1 text-right">
+    <div class="col-1">
       <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
-      <%= link_to "Invites", share_invites_path, remote: true %>
+      <% if @share_invites.blank? %>
+        <%= link_to "Invites", share_invites_path, remote: true %>
+      <% else %>
+        <%= link_to "Invites", share_invites_path, remote: true %> <span class="badge badge-pill badge-danger"><%= @share_invites.count %></span>
+      <% end %>
     </div>
   </div>
 </div>
