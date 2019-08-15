@@ -1,5 +1,6 @@
 class ShareInvitesController < ApplicationController
   before_action :set_share_invite, only: [:show, :edit, :update, :destroy]
+  before_action :set_contact_group, only: [:new, :create]
 
   # GET /share_invites
   # GET /share_invites.json
@@ -122,6 +123,10 @@ class ShareInvitesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_share_invite
       @share_invite = ShareInvite.find(params[:id])
+    end
+
+    def set_contact_group
+      @contact_group = ContactGroup.find( params[:contact_group_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
