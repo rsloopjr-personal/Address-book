@@ -69,47 +69,6 @@ class ContactGroupsController < ApplicationController
     end
   end
 
-  # GET /contact_groups/:contact_group_id/share_new
-  def share_new
-
-  end
-
-  # POST /contact_groups/:contact_group_id/share_create
-  def share_create
-    # Take input of group number as :id, as well as a user_id as :share_id to share with, save along with current_user in the join-table contact_groups_users
-       
-      if User.exists?(email: params[:contact_group][:share_id])
-        sharee = User.where(email: params[:contact_group][:share_id]).first!
-        #Ensure User being shared to does not already have access to the group
-        if sharee.contact_groups.where({ id: @contact_group.id }).blank?
-          if ShareInvite.where({receiver_id: sharee.id, contact_group_id: @contact_group.id, status: "pending"}).exists?
-            respond_to do |format|
-              format.html { flash[:modal_alert] = "User already has an invite pending for this group" }
-              format.js { flash[:modal_alert] = "User already has an invite pending for this group" }
-            end
-          else
-            #create_invite = ShareInvite.create!( sharer_id: current_user.id, receiver_id: User.where( email: params[:contact_groups][:share_id] ).first.id, contact_group_id: @contact_group.id, status: “pending” )
-            create_invite = ShareInvite.create!( sharer_id: current_user.id, receiver_id: sharee.id, contact_group_id: @contact_group.id, status: "pending" )
-
-            respond_to do |format|
-              format.html { redirect_to homes_url, notice: 'Invite Sent' }
-              format.js { redirect_to homes_url, notice: 'Invite Sent' }
-            end
-          end
-        else
-          respond_to do |format|
-            format.html { flash[:modal_alert] = "Group has already been shared with user" }
-            format.js { flash[:modal_alert] = "Group has already been shared with user" }
-          end
-        end
-      else
-        respond_to do |format|
-          format.html { flash[:modal_alert] = "User does not exist" }
-          format.js { flash[:modal_alert] = "User does not exist" }
-        end
-      end
-  end
-
   # DELETE /contact_groups/1
   # DELETE /contact_groups/1.json
   def destroy
