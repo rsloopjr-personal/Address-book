@@ -26,4 +26,22 @@
     overflow:hidden; word-wrap:normal;
 }
 
+.sidebar-button {
+   // padding: 0;
+    border: none;
+    font: inherit;
+    color: rgb(194, 199, 208) ;
+    background-color: #343a40;
+}
+.sidebar-dropdown {
+    // padding: 0;
+     border: none;
+     font: inherit;
+     color: rgb(194, 199, 208) !important;
+     background-color: #343a40;
+ }
 
+.sidebar-button:hover {
+    background-color: rgba(255,255,255,.1);
+    color: white !important;
+}

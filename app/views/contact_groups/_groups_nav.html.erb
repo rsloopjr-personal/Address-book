@@ -1,0 +1,49 @@
+<ul class="nav nav-treeview">  
+  <% @contact_groups.each do |contact_group| %>
+    <li class="nav-item dropdown">
+      <!--<a class="nav-link" href="/contact_groups/<%= contact_group.id %>">-->
+      <!--<a class="nav-link" href="<%= contact_group_path(contact_group) %>">
+        <p>
+          <%= contact_group.group_name %>
+      
+        </p>  
+      </a>
+            <div data-toggle="dropdown">
+              <i class="right fas fa-angle-down"></i>
+            </div>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+              <a href="<%= edit_contact_group_path(contact_group) %>" class="dropdown-item" data-remote="true">
+                <span class="text-muted text-sm">Edit</span>
+             </a>
+             <a href="<%= new_contact_group_share_invite_path(contact_group) %>" class="dropdown-item" data-remote="true">
+                <span class="text-muted text-sm">Share</span>
+             </a>
+             <a rel="nofollow" data-method="delete" href="<%= contact_group_path(contact_group) %>" class="dropdown-item" data-remote="true">
+                <span class="text-muted text-sm">Delete</span>
+             </a>
+
+        
+      </li> -->
+    <!-- Working Button Groups -->
+    <div class="btn-group btn-block">    
+        <%= link_to contact_group.group_name,  contact_group_path(contact_group), :class => current_class?(contact_group.id) %>
+      <div class="btn-group-vertical">        
+        <button type="button" class="btn dropdown-toggle sidebar-dropdown" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+        </button> 
+          <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                <a href="/contact_groups/<%= contact_group.id %>/edit" class="dropdown-item" data-remote="true">
+                  <span class="text-muted text-sm">Edit</span>
+              </a>
+              <a href="/contact_groups/<%= contact_group.id %>/share_invites/new" class="dropdown-item" data-remote="true">
+                  <span class="text-muted text-sm">Share</span>
+              </a>
+              <a rel="nofollow" data-method="delete" href="/contact_groups/<%= contact_group.id %>" class="dropdown-item" data-remote="true">
+                  <span class="text-muted text-sm">Delete</span>
+              </a>
+        </div>
+    </div>      
+    </li> 
+    
+  <% end %>
+</ul>

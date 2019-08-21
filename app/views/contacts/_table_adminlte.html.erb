@@ -1,0 +1,78 @@
+<div class="row" style="padding-top: 10px;">
+  <div class="col-1 d-block d-md-none">
+    <a class="nav-link" data-widget="pushmenu" href="#">
+      <i class="fas fa-angle-double-right"></i>
+    </a>
+  </div>
+  <div class="col-11">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title" style="padding-bottom: 5px;">Contacts</h2>
+
+        <!--<div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 my-custom-scrollbar">
+        <table class="table table-hover table-head-fixed d-none d-md-block">
+          <thead>
+            <tr>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Phone number</th>
+              <th>Contact email</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+          <% if @contacts.present? %>
+            <tbody>
+              <% @contacts.each do |contact| %>
+                <tr>
+                  <td><%= contact.first_name %></td>
+                  <td><%= contact.last_name %></td>
+                  <td><%= contact.phone_number %></td>
+                  <!-- <td><%= contact.contact_picture %></td> -->
+                  <td><%= contact.contact_email %></td>
+                  <!-- <td><%= link_to 'Show', contact %></td> -->
+                  <td><%= link_to 'Edit', edit_contact_path(contact), remote: true %></td>
+                  <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% end %>
+        </table>
+        <table class="table table-hover table-head-fixed d-block d-md-none">
+          <thead>
+            <tr>
+              <th>First name</th>
+              <th>Last name</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+          <% if @contacts.present? %>
+            <tbody>
+              <% @contacts.each do |contact| %>
+                <tr>
+                  <td><%= contact.first_name %></td>
+                  <td><%= contact.last_name %></td>
+                  <td><%= link_to 'Edit', edit_contact_path(contact), remote: true %></td>
+                  <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <%= link_to 'New Contact', new_contact_path, remote: true, class: "btn btn-primary" %>
+</div>

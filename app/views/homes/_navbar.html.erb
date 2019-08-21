@@ -1,0 +1,62 @@
+<!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+    <div class="container">
+      <a class="navbar-brand">
+        <span class="brand-text font-weight-light">Mint Book</span>
+      </a>
+
+      <!-- Left navbar links
+      <ul class="navbar-nav">
+        <li class="nav-item">
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index3.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
+      </ul> -->
+
+      <!-- SEARCH FORM -->
+      <form class="form-inline ml-3">
+        <div class="input-group input-group-sm">
+          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Invites Menu -->
+        <li class="navbar-item">
+          <a class="nav-link" data-widget="pushmenu" href="#">
+           <i class="fas fa-bars"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <%= link_to share_invites_path, remote: true, class: "nav-link" do%>
+            <i class="fas fa-envelope"></i>
+            <% if @pending_share_invites.blank? %>
+            <% else %>
+              <span class="badge badge-danger navbar-badge"><%= @pending_share_invites.count %></span>
+            <% end %>
+          <%end%>
+          
+          
+        <!-- Sign out Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+          <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "dropdown-item") %>
+
+      </ul>
+    </div>
+  </nav>
+  <!-- /.navbar -->

@@ -1,18 +1,7 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2">
-      <%= render 'contact_groups/groups_table' %>
-    </div>
-    <div class="col-9">
-      <%= render 'contacts/table' %>
-    </div>
-    <div class="col-1">
-      <%= link_to("Sign Out", destroy_user_session_path, :method => 'delete') %>
-      <% if @pending_share_invites.blank? %>
-        <%= link_to "Invites", share_invites_path, remote: true %>
-      <% else %>
-        <%= link_to "Invites", share_invites_path, remote: true %> <span class="badge badge-pill badge-danger"><%= @pending_share_invites.count %></span>
-      <% end %>
+    <div class="col-10">
+      <%= render 'contacts/table_adminlte' %>
     </div>
   </div>
 </div>
