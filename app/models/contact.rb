@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
     belongs_to :contact_group
+    has_many :users, through: :contact_groups
      validate :has_name
      validate :has_contact_information
 

@@ -5,3 +5,7 @@
     </div>
   </div>
 </div>
+<%logger.debug "the value of session variable welcome_message_shown is #{session[:welcome_message_shown]}"%>
+<% if session[:welcome_message_shown] == false %>
+  <script>$("#shared-modal").html("<%= j (render partial: 'welcome_message') %>");  $("#shared-modal").modal();</script>
+<%end%>

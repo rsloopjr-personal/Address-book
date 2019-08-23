@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :homes, :only => [:index]
+  resources :homes, :only => [:index] do
+    collection do 
+      get :search_index
+    end
+  end
   resources :contact_groups do
     resources :share_invites, shallow: true, :only => [:new, :create, :destroy] do
       member do

@@ -30,6 +30,7 @@ class ContactsController < ApplicationController
     end
   end
 
+
   # POST /contacts
   # POST /contacts.json
   def create
@@ -87,13 +88,14 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       contact_group = ContactGroup.find( session[:contact_group_id] )
-
       @contact = contact_group.contacts.find(params[:id])
+    rescue
+      @contact = current_user.contacts.find(params[:id])
       #@contact = current_user.contact_group.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :last_name, :phone_number, :contact_picture, :contact_email)
+      params.require(:contact).permit(:first_name, :last_name, :phone_number, :contact_picture, :contact_email, :search_term)
     end
 end

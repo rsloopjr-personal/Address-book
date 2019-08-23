@@ -10,6 +10,8 @@
   </head>
 
   <body class="hold-transition sidebar-mini layout-fixed" style="height: 100%;">
+    <div class="modal fade" id="shared-modal" tabindex="-1" role="dialog" aria-labelledby="shared_modal" aria-hidden="true">
+    </div>
       <% if current_user %>
       
       <div class="wrapper">
@@ -36,7 +38,5 @@
       <% end %>
       <%= yield %>
       <% end %>
-      <div class="modal fade" id="shared-modal" tabindex="-1" role="dialog" aria-labelledby="shared_modal" aria-hidden="true">
-    </div>
   </body>
 </html>

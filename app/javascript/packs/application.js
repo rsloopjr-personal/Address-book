@@ -10,7 +10,8 @@ require("channels")
 
 require("admin-lte")
 require("admin-lte/plugins/fontawesome-free/css/all.min.css");
-//require("admin-lte/plugins/inputmask/min/jquery.inputmask.bundle.min.js");    
+require("admin-lte/plugins/inputmask/min/jquery.inputmask.bundle.min.js");    
+require("admin-lte/plugins/inputmask/inputmask/jquery.inputmask.js");    
 require("admin-lte/dist/css/adminlte.min.css");
 
 // Uncomment to copy all static images under ../images to the output folder and reference

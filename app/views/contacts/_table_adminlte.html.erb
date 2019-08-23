@@ -1,10 +1,5 @@
 <div class="row" style="padding-top: 10px;">
-  <div class="col-1 d-block d-md-none">
-    <a class="nav-link" data-widget="pushmenu" href="#">
-      <i class="fas fa-angle-double-right"></i>
-    </a>
-  </div>
-  <div class="col-11">
+  <div class="col-12">
     <div class="card">
       <div class="card-header">
         <h2 class="card-title" style="padding-bottom: 5px;">Contacts</h2>
@@ -28,6 +23,10 @@
               <th>Last name</th>
               <th>Phone number</th>
               <th>Contact email</th>
+              <% if @search_groups_ids.blank?%>
+              <%else%>
+                <th>Contact Group</th>
+              <%end%>
               <th colspan="2"></th>
             </tr>
           </thead>
@@ -40,7 +39,10 @@
                   <td><%= contact.phone_number %></td>
                   <!-- <td><%= contact.contact_picture %></td> -->
                   <td><%= contact.contact_email %></td>
-                  <!-- <td><%= link_to 'Show', contact %></td> -->
+                  <% if @search_groups_ids.blank?%>
+                  <%else%>
+                    <td><%= current_user.contact_groups.find( contact.contact_group_id ).group_name %></td>
+                  <%end%>
                   <td><%= link_to 'Edit', edit_contact_path(contact), remote: true %></td>
                   <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>

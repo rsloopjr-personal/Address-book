@@ -42,6 +42,7 @@ class ContactGroupsController < ApplicationController
     respond_to do |format|
       if @contact_group.save
         @contact_group.users << current_user
+        session[:contact_group_id] = @contact_group.id
         format.html { redirect_to @contact_group, notice: 'Contact group was successfully created.' }
         format.js { redirect_to homes_url, notice: 'Group successfully created.' }
         format.json { render :show, status: :created, location: @contact_group }
