@@ -7,9 +7,10 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>    
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>    
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>    
   </head>
 
-  <body class="hold-transition sidebar-mini layout-fixed" style="height: 100%;">
+  <body class="hold-transition layout-fixed" style="height: 100%;">
     <div class="modal fade" id="shared-modal" tabindex="-1" role="dialog" aria-labelledby="shared_modal" aria-hidden="true">
     </div>
       <% if current_user %>
