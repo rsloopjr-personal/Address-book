@@ -14,7 +14,20 @@
     <div class="modal fade" id="shared-modal" tabindex="-1" role="dialog" aria-labelledby="shared_modal" aria-hidden="true">
     </div>
       <% if current_user %>
-      
+      <script>
+      $(document).ready(function(){
+        $(window).resize(function() {
+          var windowWidth = $(window).width();
+          console.log (windowWidth);
+          if (windowWidth > 767) {
+            var bodyClass = $("body.layout-fixed").attr("class");
+            if (bodyClass.includes("sidebar-collapse")) {
+              $("body.layout-fixed").removeClass("sidebar-collapse");
+            };
+          };
+        });
+      });
+      </script>
       <div class="wrapper">
         <%= render 'homes/navbar' %>
         <%= render 'homes/sidebar' %>
