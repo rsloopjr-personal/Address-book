@@ -7,6 +7,7 @@ class ShareInvitesController < ApplicationController
   def index
     @pending_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "pending"})
     @accepted_share_invites = ShareInvite.where({receiver_id: current_user.id, status: "accepted"})
+    @sent_share_invites = ShareInvite.where(sharer_id: current_user.id)
     logger.debug "pending- #{@pending_share_invites}"
     logger.debug "accepted- #{@accepted_share_invites}"
   end

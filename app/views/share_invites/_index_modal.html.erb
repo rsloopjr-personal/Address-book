@@ -60,6 +60,30 @@
             <% end %>
           </tbody>
         </table>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Sent Invites</th>
+              <th colspan="1"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @sent_share_invites.blank? %>
+              <tr>
+                <td>No Invites To Your Groups Sent</td>
+              </tr>
+            <%else%>
+              <% @sent_share_invites.each do |share_invite| %>
+                <tr>
+                  <td>You sent a request to share your <%= current_user.contact_groups.find(share_invite.contact_group_id).group_name %> with <%= User.where( id: share_invite.receiver_id ).first.email%>: Status "<%= share_invite.status %>" </td>
+                  <td style="padding-left:10px;"><%= link_to 'Revoke', share_invite, method: :delete, data: { confirm: "Are you sure wish to Revoke? If you continue you will remove access to the #{ContactGroup.where( id: share_invite.contact_group_id ).first.group_name} group and all associated contacts from #{User.where( id: share_invite.receiver_id ).first.email}"} %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
 
       </div>
   </div>
